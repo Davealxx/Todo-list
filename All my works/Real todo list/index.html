@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="fontawesome-free-6.2.1-web/fontawesome-free-6.2.1-web/css/all.css">
+    <link rel="stylesheet" href="bootstrap-5.3.0-alpha1-dist/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .all {
+            border: 2px solid rgb(27, 92, 29);
+        }
+
+        input {
+            border-radius: 8px;
+            outline: none;
+            border: 1px solid rgb(27, 92, 29);
+            padding-left: 9px;
+        }
+
+        input:focus {
+            outline: 2px solid rgb(27, 92, 29);
+            box-shadow: 0px 0px 15px rgb(27, 92, 29);
+        }
+
+        #div {
+            text-align: left;
+
+        }
+
+        .show {
+            border-radius: 8px;
+            background-color: rgb(65, 170, 68);
+            padding-left: 10px;
+            display: flex;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+            justify-content: space-between;
+        }
+        #show{
+            width: 80%;
+        }
+        #inside{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        /* .del{
+            width: 30%;
+            padding-right: 40%;
+        } */
+        .inside{
+            width: 100%;
+        }
+        @media (max-width: 1100px) {
+            .inside{
+                width: 75%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container text-center w-50 mt-5 all">
+        <div class="mt-4 mb-3 d-flex">
+            <input id="input" maxlength="30" class="w-75 mx-2" type="text">
+            <button onclick="enter()" class="btn btn-success w-25 fs-5">Add</button>
+        </div>
+        <div class="text-left">
+            <h4 class="" id="showErr"></h4>
+        </div>
+        <div id="div" class="div text-left my-3 ">
+
+        </div>
+    </div>
+</body>
+
+</html>
+<script src="bootstrap-5.3.0-alpha1-dist/js/bootstrap.bundle.js"></script>
+<script>
+    let showErr = document.getElementById("showErr")
+    let input = document.getElementById("input")
+    let div = document.getElementById("div")
+    // let show = document.getElementById("show")
+    let array = []
+    // let myArr = ["Go", "Come", "Leave", "Wait", "Arrive"]
+    // console.log(myArr);
+    // myArr.splice(2, 2)
+    // console.log(myArr);
+
+    function dispArr(){
+        div.innerHTML = ""
+        array.forEach((el, index)=>{
+                div.innerHTML += `
+                <div id="inside" class="d-flex rounded-2 bg-success align-items-center my-3  px-2 inside">
+                    <h5 class="my-3 text-light" id="show">${index +1}. ${el} </h5>
+                    <div class="d-flex"><button onclick="del(${index})" class="btn btn-success del" id="del"> DEL </button><button onclick="edit(${index})" class="btn btn-success del" id="edit"> EDIT </button></div><br>
+                    </div>`;
+        }   )
+    }
+    dispArr();
+
+
+
+    let show = document.getElementById("show")
+    let inside = document.getElementById("inside")
+    function enter() {
+        if (input.value == "" || input.value <= "                         ") {
+            showErr.style.color = "red"
+            showErr.innerHTML = "Input field must be filled"
+            return;
+        }
+        else {
+            showErr.innerHTML = "Todo list added successfully"
+            showErr.style.color = "green"
+            array.push(input.value)
+            dispArr()
+        }
+        input.value = ""
+    }
+
+    function del(index){
+        array.splice(index, 1)
+        if ( index == 1 ) {
+            showErr.innerHTML = "All Todo list deleted successfully"
+        }
+            showErr.innerHTML = "Todo list number" + " " + [index +1] +" "+ "deleted successfully"
+        dispArr()
+    }
+    function edit(index){
+        input.value = show.innerHTML
+        // array.splice(index, 1)
+        // dispArr()
+    }
+
+</script>
